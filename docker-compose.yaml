@@ -17,7 +17,7 @@ services:
       - WG_HOST=${WG_SERVER_PUBLIC_IP}       # Public IP address (or domain name, ${WG_SERVER_HOSTNAME}) of WireGuard server location
       - WG_PORT=51820                        # WireGuard port for VPN traffic (Default: 51820)
       # - WG_DEFAULT_ADDRESS=10.8.0.x        # Specifies the default subnet for clients (Default: 10.8.0.x)
-      # - WG_DEFAULT_DNS=1.1.1.1             # Sets the default DNS server for connected clients (Default: 1.1.1.1
+      # - WG_DEFAULT_DNS=1.1.1.1             # Sets the default DNS server for connected clients (Default: 1.1.1.1)
       # - WG_ALLOWED_IPS=0.0.0.0/0, ::/0     # Determines which IPs the clients are allowed to access (Default is full tunnel: 0.0.0.0/0, ::/0) 
       # - WG_PERSISTENT_KEEPALIVE=25         # Sets the keepalive interval to maintain NAT traversal (Default: 25 seconds)
       
@@ -36,4 +36,4 @@ services:
     cap_add:                                 # Capabilities required for managing networking features (intefaces/routes)
       - NET_ADMIN
       - SYS_MODULE
-    restart: unless-stopped # Auto-restarts on reboot/failure unless manually stopped; use "always" to keep it running at all times
+    restart: unless-stopped                  # Auto-restarts on reboot/failure unless manually stopped

@@ -1,0 +1,39 @@
+volumes:
+  etc_wireguard:
+
+services:
+  wg-easy:
+    image: ghcr.io/wg-easy/wg-easy       # Docker image (version 14 - latest/stable)
+    container_name: wg-easy
+    env_file: .env                       # Set environment variables inside the container
+    # Exposes WireGuard and Web UI ports to the host machine. These will appear in "docker ps" 
+    # under the PORTS column, showing the mapped addresses (i.e., 0.0.0.0:51820->51820/udp). 
+    # Use "docker ps" to verify that the container is running and accessible.
+    ports:
+      - "51820:51820/udp"                # UDP port used by WireGuard server (Default: 51820)
+      - "51821:51821/tcp"                # TCP port for accessing the web-based admin UI (Default: 51821)
+    environment:
+      # WireGuard VPN Server Settings:
+      - WG_HOST=${WG_SERVER_PUBLIC_IP}   # Public IP address (or domain name, ${WG_SERVER_HOSTNAME}) of WireGuard server location
+      - WG_PORT=51820                    # WireGuard port for VPN traffic (Default: 51820)
+      # - WG_DEFAULT_ADDRESS=10.8.0.x    # Specifies the default subnet for clients (Default: 10.8.0.x)
+      # - WG_DEFAULT_DNS=1.1.1.1         # Sets the default DNS server for connected clients (Default: 1.1.1.1
+      # - WG_ALLOWED_IPS=0.0.0.0/0, ::/0 # Determines which IPs the clients are allowed to access (Default is full tunnel: 0.0.0.0/0, ::/0) 
+      # - WG_PERSISTENT_KEEPALIVE=25     # Sets the keepalive interval to maintain NAT traversal (Default: 25 seconds)
+      
+      # WireGuard Web UI Settings:
+      - PORT=51821                       # Web UI port for management of VPN connections (Default: 51821)  
+      - UI_CHART_TYPE=2                  # (0 - Chart disabled, 1 - Line, 2 - Area, 3 - Bar)
+      - UI_TRAFFIC_STATS=true
+      # - INSECURE=true                  # Enable/disable web UI access over HTTP, http://<WG_HOST>:<PORT> (not recommended, for testing only, version 15)
+      - PASSWORD_HASH=${WG_WEB_UI_PASSWORD_HASH} # Needs $$ (i.e. "$" = "$$"), Bcrypt hash (use htpasswd tool) for web UI login; update to "PASSWORD" with version 15
+    
+    volumes:
+      - etc_wireguard:/etc/wireguard         # Volume mapping for WireGuard configuration files (wg0.conf)
+    sysctls:                                 # Kernel parameters that need to be set for WireGuard
+      - net.ipv4.ip_forward=1                # Enable IP forwarding for routing packets through the VPN
+      - net.ipv4.conf.all.src_valid_mark=1
+    cap_add:                                 # Capabilities required for managing networking features (intefaces/routes)
+      - NET_ADMIN
+      - SYS_MODULE
+    restart: unless-stopped # Auto-restarts on reboot/failure unless manually stopped; use "always" to keep it running at all times

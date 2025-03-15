@@ -7,8 +7,8 @@ services:
     env_file: .env                       # Set environment variables inside the container
     container_name: wg-easy
     # Exposes WireGuard and Web UI ports to the host machine. These will appear in "docker ps" 
-    # under the PORTS column, showing the mapped addresses (i.e., 0.0.0.0:51820->51820/udp). 
-    # Use "docker ps" to verify that the container is running and accessible.
+    # under the PORTS column, showing the mapped addresses (i.e., 0.0.0.0:51820->51820/udp, 
+    # 0.0.0.0:51821->51821/tcp). Use "docker ps" to verify that the container is running and accessible.
     ports:
       - "51820:51820/udp"       # UDP port used by WireGuard server (Default: 51820)
       - "51821:51821/tcp"       # TCP port for accessing the web-based admin UI (Default: 51821)

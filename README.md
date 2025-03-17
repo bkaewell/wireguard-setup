@@ -19,16 +19,6 @@ Welcome to the **WireGuard Setup Repository**! This repository provides a simple
 - A router configured with NAT/port forwarding for external access
 
 
-## **📦 Installation**
-### **Install Docker**
-```bash
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $(whoami)
-exit
-```
-After installation, log out and log back in
-
-
 ## **⚡ Quick Setup**
 ### **1️⃣ Clone the Repo**
 ```bash
@@ -82,10 +72,10 @@ Log into your router's admin panel
 To ensure port forwarding works consistently, assign a static IP to the machine running WireGuard 
 
 **For TP-Link A7 Routers:**
-1. Go to Advanced > Network > DHCP Server > Settings > Address Reservation
-2. Click Add and select the WireGuard server's MAC address from the list of connected devices
+1. Go to **Advanced > Network > DHCP Server > Settings > Address Reservation**
+2. Click **Add** and select the WireGuard server's MAC address from the list of connected devices
 3. Assign it an available IP address in the range `192.168.0.[2-255]`, such as `192.168.0.123`
-4. Click Save and reboot your router to apply the changes
+4. Click Save and reboot your router to apply the changes  
 Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
 
 Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:  
@@ -102,16 +92,68 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 
 3. Save changes and reboot your router
 
-### **6️⃣ Port Connectivity Testing: UDP vs. TCP**
+### **6️⃣ Port Connectivity Testing: UDP vs. TCP**  
 
 | **Test Type** | **Command** | **Protocol** | **Expected Behavior** | **Use Case** |
 |--------------|------------|-------------|----------------------|-------------|
-| **Test TCP Connectivity** | `nc -zv <IP> <PORT>` | TCP | ✅ **"Connection succeeded"** if port is open | Verify if a TCP port is accepting connections |
-| **Test UDP Connectivity** | `nc -uzv <IP> <PORT>` | UDP | ✅ **"Connection succeeded"** if port is open | Check if a UDP port is accessible |
+| **UDP Connectivity** | `nc -uzv <IP> <PORT>` | UDP | ✅ **"Connection succeeded"** if port is open | Check if a UDP port is accessible |
+| **TCP Connectivity** | `nc -zv <IP> <PORT>` | TCP | ✅ **"Connection succeeded"** if port is open | Verify if a TCP port is accepting connections |
 | **Check Listening Ports on Server** | `sudo ss -tulnp \| grep <PORT>` | TCP/UDP | Shows process listening if port is open | Confirm if WireGuard or a service is running on the port |
 | **Check Firewall Rules (UFW)** | `sudo ufw status verbose \| grep <PORT>` | TCP/UDP | Displays if port is allowed | Verify firewall settings for the port |
 | **Check Firewall Rules (IPTables)** | `sudo iptables -L -v -n \| grep <PORT>` | TCP/UDP | Shows port rules if configured | Ensure IPTables isn’t blocking traffic |
 | **Capture Incoming Packets (UDP/TCP)** | `sudo tcpdump -i any port <PORT> -n` | TCP/UDP | Shows real-time packets if traffic is reaching the server | Troubleshoot whether packets are arriving at the machine |
+
+
+
+
+
+## **📦 Installation**
+### **🐳 Install Docker & Docker Compose**
+This project requires Docker and Docker Compose. Choose your installation method based on your operating system:  
+--
+#### **🔹 Option 1: Install on macOS (Homebrew)**
+```bash
+brew install --cask docker
+```
+**Note: Docker Desktop** must be running in the background for `docker` commands to work 
+- You can launch it from **Applications > Docker** or run `open -a Docker` 
+
+
+#### **🔹 Option 2: Install on Ubuntu/Debian (APT)** 
+```bash
+sudo apt update
+sudo apt install -y docker.io docker-compose
+```
+
+#### **Verify Installation:** 
+```bash
+docker --version
+docker-compose --version
+```
+#### **Verify your user has permission to run Docker commands without `sudo`:**  
+```bash
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+
+
+
+```bash
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $(whoami)
+exit
+```
+After installation, log out and log back in
+
+
+
+
+
+
+
+
+http://<WG_HOST>:<PORT> 
 
 
 ## **📂 Repository Overview**

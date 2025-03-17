@@ -35,7 +35,7 @@ Update these variables in `.env` to protect private data:
 - WG_SERVER_HOSTNAME → Your server’s hostname (optional)
 - WG_WEB_UI_PASSWORD → Set a secure admin password for the WireGuard Web UI
   
-### 3️⃣ Customize `docker-compose.yaml`  
+### 3️⃣ Configure Docker for WireGuard VPN:
 Modify `docker-compose.yaml` to adjust ports and WireGuard settings if necessary:  
 ```yaml
 services:

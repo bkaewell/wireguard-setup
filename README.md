@@ -77,7 +77,7 @@ Log into your router's admin panel
 | **Router Model**  | **Admin Panel URL** | 
 |-------------------|------------------------------|
 | **TP-Link A7**   | [http://192.168.0.1](http://192.168.0.1) |
-| **Asus Routers** | `http://192.168.X.1` (varies by model) |
+| **Other Routers** | `http://192.168.X.1` |
 
 To ensure port forwarding works consistently, assign a static IP to the machine running WireGuard 
 
@@ -101,6 +101,17 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 | **SSH Access**    | 22               | 22               | TCP        | Remote server access via SSH   | 192.168.0.123    |
 
 3. Save changes and reboot your router
+
+### **6️⃣ Port Connectivity Testing: UDP vs. TCP**
+
+| **Test Type** | **Command** | **Protocol** | **Expected Behavior** | **Use Case** |
+|--------------|------------|-------------|----------------------|-------------|
+| **Test TCP Connectivity** | `nc -zv <IP> <PORT>` | TCP | ✅ **"Connected"** if port is open | Verify if a TCP port is accepting connections |
+| **Test UDP Connectivity** | `nc -u -zv <IP> <PORT>` | UDP | ✅ **"Connected"** if port is open | Check if a UDP port is accessible |
+| **Check Listening Ports on Server** | `sudo ss -tulnp | grep <PORT>` | TCP/UDP | Shows process listening if port is open | Confirm if WireGuard or a service is running on the port |
+| **Check Firewall Rules (UFW)** | `sudo ufw status verbose | grep <PORT>` | TCP/UDP | Displays if port is allowed | Verify firewall settings for the port |
+| **Check Firewall Rules (IPTables)** | `sudo iptables -L -v -n | grep <PORT>` | TCP/UDP | Shows port rules if configured | Ensure IPTables isn’t blocking traffic |
+| **Capture Incoming Packets (UDP/TCP)** | `sudo tcpdump -i any port <PORT> -n` | TCP/UDP | Shows real-time packets if traffic is reaching the server | Troubleshoot whether packets are arriving at the machine |
 
 
 ## **📂 Repository Overview**

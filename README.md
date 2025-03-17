@@ -101,53 +101,51 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 | **Check Listening Ports on Server** | `sudo ss -tulnp \| grep <PORT>` | TCP/UDP | Shows process listening if port is open | Confirm if WireGuard or a service is running on the port |
 | **Check Firewall Rules (UFW)** | `sudo ufw status verbose \| grep <PORT>` | TCP/UDP | Displays if port is allowed | Verify firewall settings for the port |
 | **Check Firewall Rules (IPTables)** | `sudo iptables -L -v -n \| grep <PORT>` | TCP/UDP | Shows port rules if configured | Ensure IPTables isn’t blocking traffic |
-| **Capture Incoming Packets (UDP/TCP)** | `sudo tcpdump -i any port <PORT> -n` | TCP/UDP | Shows real-time packets if traffic is reaching the server | Troubleshoot whether packets are arriving at the machine |
+| **Capture Incoming Packets (UDP/TCP)** | `sudo tcpdump -i any port <PORT> -n` | TCP/UDP | Shows real-time packets if traffic is reaching the server | Troubleshoot whether packets are arriving at the machine |  
 
-
-
-
-
+  
+  
 ## **📦 Installation**  
 ### **🐳 Install Docker & Docker Compose**  
 This project requires Docker and Docker Compose. Choose your installation method based on your operating system:  
---  
-
-#### **🔸 Option 1: Install on macOS (Homebrew)**
+--    
+  
+#### **🔸 Option 1: Install on macOS (Homebrew)**  
 ```bash
 brew install --cask docker
 ```
-**Note: Docker Desktop** must be running in the background for `docker` commands to work 
-- You can launch it from **Applications > Docker** or run `open -a Docker` 
-
-#### **🔸 Option 2: Install on Ubuntu/Debian (APT)** 
+**Note: Docker Desktop** must be running in the background for `docker` commands to work  
+- You can launch it from **Applications > Docker** or run `open -a Docker`   
+  
+#### **🔸 Option 2: Install on Ubuntu/Debian (APT)**  
 ```bash
 sudo apt update
 sudo apt install -y docker.io docker-compose
 ```
-
-#### **Verify Installation:** 
+  
+#### **Verify Installation:**  
 ```bash
 docker --version
 docker-compose --version
 ```
-
-#### **Verify your user has permission to run Docker commands without** `sudo`:
+  
+#### **Verify your user has permission to run Docker commands without** `sudo`:  
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
 ```
-
+  
 #### **Verify Docker starts automatically on a system reboot:**  
 ```bash
 sudo systemctl enable --now docker
 ```
-
+  
 ## **⚙️ Deployment**  
 ### **🔐 Deploy WireGuard (Production Mode)**  
 ```bash
 docker compose --profile prod up -d
 ```
-
+  
 
 
 

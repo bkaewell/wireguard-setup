@@ -35,7 +35,7 @@ Update these variables in `.env` to protect private data:
 - WG_SERVER_HOSTNAME → Your server’s hostname (optional)
 - WG_WEB_UI_PASSWORD → Set a secure admin password for the WireGuard Web UI
 
-### **3️⃣ Customize `docker-compose.yaml`**
+### **3️⃣ Customize** `docker-compose.yaml`
 Modify `docker-compose.yaml` to adjust ports and WireGuard settings if necessary:
 ```yaml
 services:
@@ -111,7 +111,7 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 ### **🐳 Install Docker & Docker Compose**  
 This project requires Docker and Docker Compose. Choose your installation method based on your operating system:  
 --  
---  
+
 #### **🔸 Option 1: Install on macOS (Homebrew)**
 ```bash
 brew install --cask docker
@@ -131,7 +131,7 @@ docker --version
 docker-compose --version
 ```
 
-#### **Verify your user has permission to run Docker commands without `sudo`:**  
+#### **Verify your user has permission to run Docker commands without** `sudo`:
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker

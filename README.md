@@ -123,13 +123,13 @@ sudo apt update
 sudo apt install -y docker.io docker-compose
 ```
   
-#### **Verify Installation:**  
+#### Verify Installation:  
 ```bash
 docker --version
 docker-compose --version
 ```
   
-#### **Verify your user has permission to run Docker commands without** `sudo`:  
+#### Verify your user has permission to run Docker commands without sudo:  
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker

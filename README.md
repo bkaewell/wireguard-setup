@@ -4,7 +4,7 @@
 Welcome to the **WireGuard Setup Repository**! This repository provides a simple WireGuard VPN solution using Docker Compose, Uncomplicated Firewall (UFW), IPTables, and Network Address Translations (NAT) to ensure a secure, persistent setup across reboots.
 
 
-## 📌 Features
+## **📌 Features**
 - **WireGuard + Web UI:** Leverages [wg-easy](https://github.com/wg-easy/wg-easy) for an intuitive VPN management interface
 - **Customizable Deployment:** Production-ready `docker-compose.yaml` with an optional development mode for testing (future)
 - **Secure Config Management:** Uses a `.env` file to protect sensitive data like public IP and password credentials
@@ -20,7 +20,7 @@ Welcome to the **WireGuard Setup Repository**! This repository provides a simple
 
 
 ## **📦 Installation**
-### Install Docker
+### **Install Docker**
 ```bash
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $(whoami)
@@ -30,13 +30,13 @@ After installation, log out and log back in
 
 
 ## **⚡ Quick Setup**
-### Clone the repo
+### **1️⃣ Clone the Repo**
 ```bash
 git clone https://github.com/bkaewell/wireguard-setup.git
 cd wireguard-setup
 ```
 
-### Set up environment variables
+### **2️⃣ Set Up Environment Variables**
 ```bash
 cp .env.example .env
 ```
@@ -45,8 +45,8 @@ Update these variables in `.env` to protect private data:
 - WG_SERVER_HOSTNAME → Your server’s hostname (optional)
 - WG_WEB_UI_PASSWORD → Set a secure admin password for the WireGuard Web UI
 
-### Adjust settings in `docker-compose.yaml`
-Modify `docker-compose.yaml` if you need to customize ports or WireGuard settings:
+### **3️⃣ Customize `docker-compose.yaml`**
+Modify `docker-compose.yaml` to adjust ports and WireGuard settings if necessary:
 ```yaml
 services:
   wg-easy:
@@ -58,29 +58,45 @@ services:
       - "51821:51821/tcp"   # Expose Web UI port
 ```
 
-Update firewall settings to match the ports above:
+### **4️⃣ Update Firewall Settings**
+To match the configured ports, update your firewall settings:
 ```bash
 sudo ufw allow 51820/udp
 sudo ufw allow 51821/tcp
 ```
 
-Configure router for external access:
+Optional: Restrict Web UI access to a specific trusted IP:
+```bash
+sudo ufw allow from <your-trusted-ip> to any port 51821 proto tcp
+```
 
-For remote VPN access, enable NAT (port forwarding) on your router:
+### **5️⃣ Configure Router for External Access**
+For remote VPN access, enable NAT (port forwarding) and assign a static IP to your VPN server on your router:
 
-| **Port**  | **Protocol** | **Purpose**                          |
-|-----------|------------|----------------------------------|
-| 51820     | UDP        | WireGuard VPN                   |
-| 51821     | TCP        | Web UI (optional)               |
-| 22        | TCP        | SSH (recommended for remote access) |
+Log into your router's admin panel
+| **Router Model**  | **Admin Panel URL** | 
+|-------------------|------------------------------|
+| **TP-Link A7**   | [http://192.168.0.1](http://192.168.0.1) |
+| **Asus Routers** | `http://192.168.X.1` (varies by model) |
 
+To ensure port forwarding works consistently, assign a static IP to the machine running WireGuard
+**For TP-Link A7 Routers:**
+1. Go to Advanced > Network > DHCP Server > Settings > Address Reservation
+2. Click Add and select the WireGuard server's MAC address from the list of connected devices
+3. Assign it an available IP address in the range `192.168.0.[2-255]`, such as `192.168.0.123`
+4. Click Save and reboot your router to apply the changes
+Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
 
-Example: How to Set Up Port Forwarding
-
-1. Log into your router's admin panel (typically 192.168.1.1 or 192.168.0.1)
-2. Navigate to Advanced > NAT Forwarding > Virtual Servers (varies by router model)
-3. Add port forwarding rules for each port above, pointing to your server’s local IP (e.g., 192.168.1.100)
-4. Save changes and reboot your router
+Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:
+**For TP-Link A7 Routers:**
+1. Navigate to **Advanced > NAT Forwarding > Virtual Servers** (varies by router model)
+2. Click **Add** and enter the following values:
+| **Service Name**  | **External Port** | **Internal Port** | **Protocol** | **Purpose**                        | **Internal IP Address** |
+|------------------|------------------|------------------|------------|--------------------------------|------------------|
+| **WireGuard VPN** | 51820            | 51820            | UDP        | Secure VPN connectivity        | 192.168.0.123    |
+| **Web UI**        | 51821            | 51821            | TCP        | Manage WireGuard via web UI    | 192.168.0.123    |
+| **SSH Access**    | 22               | 22               | TCP        | Remote server access via SSH   | 192.168.0.123    |
+3. Save changes and reboot your router
 
 
 ## **📂 Repository Overview**

@@ -73,7 +73,7 @@ sudo ufw allow from <your-trusted-ip> to any port 51821 proto tcp
 ### **5️⃣ Configure Router for External Access**
 For remote VPN access, enable NAT (port forwarding) and assign a static IP to your VPN server on your router:
 
-Log into your router's admin panel
+Log into your router's admin panel 
 | **Router Model**  | **Admin Panel URL** | 
 |-------------------|------------------------------|
 | **TP-Link A7**   | [http://192.168.0.1](http://192.168.0.1) |
@@ -90,12 +90,14 @@ Now, your WireGuard VPN server will always have the same local IP (`192.168.0.12
 Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:
 **For TP-Link A7 Routers:**
 1. Navigate to **Advanced > NAT Forwarding > Virtual Servers** (varies by router model)
-2. Click **Add** and enter the following values:
+2. Click **Add** and enter the following values: 
+
 | **Service Name**  | **External Port** | **Internal Port** | **Protocol** | **Purpose**                        | **Internal IP Address** |
 |------------------|------------------|------------------|------------|--------------------------------|------------------|
 | **WireGuard VPN** | 51820            | 51820            | UDP        | Secure VPN connectivity        | 192.168.0.123    |
 | **Web UI**        | 51821            | 51821            | TCP        | Manage WireGuard via web UI    | 192.168.0.123    |
 | **SSH Access**    | 22               | 22               | TCP        | Remote server access via SSH   | 192.168.0.123    |
+
 3. Save changes and reboot your router
 
 

@@ -143,7 +143,8 @@ sudo systemctl enable --now docker
 ## ⚙️ Deployment   
 ### 🔐 Deploy WireGuard (Production Mode)  
 ```bash
-docker compose --profile prod up -d
+docker compose up -d                  # Current
+docker compose --profile prod up -d   # Future
 ```
   
 

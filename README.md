@@ -80,6 +80,7 @@ Log into your router's admin panel
 | **Asus Routers** | `http://192.168.X.1` (varies by model) |
 
 To ensure port forwarding works consistently, assign a static IP to the machine running WireGuard 
+
 **For TP-Link A7 Routers:**
 1. Go to Advanced > Network > DHCP Server > Settings > Address Reservation
 2. Click Add and select the WireGuard server's MAC address from the list of connected devices

@@ -76,24 +76,24 @@ To ensure port forwarding works consistently, assign a static IP to the machine 
 2. Click **Add** and select the WireGuard server's MAC address from the list of connected devices
 3. Assign it an available IP address in the range `192.168.0.[2-255]`, such as `192.168.0.123`
 4. Click Save and reboot your router to apply the changes  
+  
 Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
 
 Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:  
 
 **For TP-Link A7 Routers:**
-1. Navigate to **Advanced > NAT Forwarding > Virtual Servers** (varies by router model)
-2. Click **Add** and enter the following values: 
+1. Navigate to **Advanced > NAT Forwarding > Virtual Servers**  
+2. Click **Add** and enter the following values (don't forget to save/reboot your router): 
 
 | **Service Name**  | **External Port** | **Internal Port** | **Protocol** | **Purpose**                        | **Internal IP Address** |
 |------------------|------------------|------------------|------------|--------------------------------|------------------|
 | **WireGuard VPN** | 51820            | 51820            | UDP        | Secure VPN connectivity        | 192.168.0.123    |
 | **Web UI**        | 51821            | 51821            | TCP        | Manage WireGuard via web UI    | 192.168.0.123    |
 | **SSH Access**    | 22               | 22               | TCP        | Remote server access via SSH   | 192.168.0.123    |
-
-3. Save changes and reboot your router
-
+  
+  
 ### **6️⃣ Port Connectivity Testing: UDP vs. TCP**  
-
+  
 | **Test Type** | **Command** | **Protocol** | **Expected Behavior** | **Use Case** |
 |--------------|------------|-------------|----------------------|-------------|
 | **UDP Connectivity** | `nc -uzv <IP> <PORT>` | UDP | ✅ **"Connection succeeded"** if port is open | Check if a UDP port is accessible |

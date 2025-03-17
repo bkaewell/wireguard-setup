@@ -89,6 +89,7 @@ To ensure port forwarding works consistently, assign a static IP to the machine 
 Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
 
 Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:  
+
 **For TP-Link A7 Routers:**
 1. Navigate to **Advanced > NAT Forwarding > Virtual Servers** (varies by router model)
 2. Click **Add** and enter the following values: 

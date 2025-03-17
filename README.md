@@ -107,19 +107,19 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 
 
 
-## **📦 Installation**
-### **🐳 Install Docker & Docker Compose**
+## **📦 Installation**  
+### **🐳 Install Docker & Docker Compose**  
 This project requires Docker and Docker Compose. Choose your installation method based on your operating system:  
---
-#### **🔹 Option 1: Install on macOS (Homebrew)**
+--  
+--  
+#### **🔸 Option 1: Install on macOS (Homebrew)**
 ```bash
 brew install --cask docker
 ```
 **Note: Docker Desktop** must be running in the background for `docker` commands to work 
 - You can launch it from **Applications > Docker** or run `open -a Docker` 
 
-
-#### **🔹 Option 2: Install on Ubuntu/Debian (APT)** 
+#### **🔸 Option 2: Install on Ubuntu/Debian (APT)** 
 ```bash
 sudo apt update
 sudo apt install -y docker.io docker-compose
@@ -130,30 +130,31 @@ sudo apt install -y docker.io docker-compose
 docker --version
 docker-compose --version
 ```
+
 #### **Verify your user has permission to run Docker commands without `sudo`:**  
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-
-
-
+#### **Verify Docker starts automatically on a system reboot:**  
 ```bash
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $(whoami)
-exit
+sudo systemctl enable --now docker
 ```
-After installation, log out and log back in
+
+## **⚙️ Deployment**  
+### **🔐 Deploy WireGuard (Production Mode)**  
+```bash
+docker compose --profile prod up -d
+```
 
 
 
 
 
 
-
-
-http://<WG_HOST>:<PORT> 
+FUTURE WEB UI CHECK:  
+http://<WG_HOST>:<PORT>  
 
 
 ## **📂 Repository Overview**

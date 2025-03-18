@@ -2,4 +2,4 @@
 **/.env
 
 # Ignore WireGuard config files:
-config/wg0.conf
+config/wg0.*

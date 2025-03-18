@@ -1,5 +1,3 @@
-#volumes:
-#  etc_wireguard:
 
 services:
   wg-easy:
@@ -29,7 +27,6 @@ services:
       - PASSWORD_HASH=${WG_WEB_UI_PASSWORD}  # Hashed password for securing the WireGuard web UI; update to "PASSWORD" with version 15
     
     volumes:
-      # - etc_wireguard:/etc/wireguard         # Volume mapping for WireGuard configuration files (wg0.conf)
       - ./config:/etc/wireguard              # Wg-easy docker image auto-generates wg0.conf; store it inside repo
     sysctls:                                 # Kernel parameters that need to be set for WireGuard
       - net.ipv4.ip_forward=1                # Enable IP forwarding for routing packets through the VPN

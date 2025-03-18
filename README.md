@@ -141,15 +141,29 @@ sudo systemctl enable --now docker
 ```
   
 ## ⚙️ Deployment   
-### 🔐 Deploy WireGuard (Production Mode)  
+### 🔐 Deploy WireGuard (Production Mode) 
+
+Run the VPN server using **Docker Compose** deploying the `wg-easy` service in detached mode (running in the background):
 ```bash
 docker compose up -d                  # Current
 docker compose --profile prod up -d   # Future
-```
+```  
   
-
-
-
+Check if the container is running:  
+```bash
+docker ps -a
+```  
+You should see the `wg-easy` container running  
+  
+### Stop the VPN Container  
+```bash
+docker compose down
+```  
+  
+```bash
+sudo iptables -t nat -L -v -n | grep MASQUERADE
+```  
+✅ If MASQUERADE is missing, VPN clients won’t have internet.
 
 
 FUTURE WEB UI CHECK:  
@@ -162,14 +176,14 @@ wireguard-setup/                # Root directory for WireGuard Setup (partially 
 └── scripts/
     ├── check_firewall.sh       # Firewall & IPTables verification script
     ├── check_docker_reboot.sh  # Docker restart verification script
-├── docker-compose.yaml         # Supports both production & development (FUTURE)
+├── docker-compose.yaml         # Supports both production & development (Prod implemented, development FUTURE)
 ├── Dockerfile.dev              # Builds the custom dev-friendly image (FUTURE)
 ├── docker-entrypoint.dev.sh    # Optional custom entrypoint for dev mode (FUTURE)
 ├── .env.example                # Template for environment variables
 ├── .gitignore                  # Ignores sensitive files
 └── README.md                   # Documentation (this file)
-```
-
+```  
+  
 **🎯 Looking to contribute?** Open an issue or fork the repo!  
 **🏗 Author:** [Brian Kaewell](https://github.com/bkaewell)  
 **📧 Contact:** Please open an issue [here](https://github.com/bkaewell/wireguard-setup/issues)

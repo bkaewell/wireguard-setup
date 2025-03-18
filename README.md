@@ -15,7 +15,7 @@ Welcome to the **WireGuard Setup Repository**! This repository provides a simple
   
 ## 🔑 Requirements  
 - A host with a kernel that supports WireGuard (all modern kernels)
-- A host with Docker & Docker Compose installed (See below for installation)
+- A host with Docker & Docker Compose installed 
 - A router configured with NAT/port forwarding for external access
   
   
@@ -61,7 +61,7 @@ sudo ufw allow from <your-trusted-ip> to any port 51821 proto tcp
 ```
   
 ### 5️⃣ Configure Router for External Access  
-For remote VPN access, enable NAT (port forwarding) and assign a static IP to your VPN server on your router:
+For remote VPN access, assign a static IP and enable NAT (port forwarding) to your VPN server on your router:
   
 Log into your router's admin panel 
 | **Router Model**  | **Admin Panel URL** | 
@@ -71,17 +71,17 @@ Log into your router's admin panel
   
 To ensure port forwarding works consistently, assign a static IP to the machine running WireGuard 
   
-**For TP-Link A7 Routers:**
+**Assign a static IP (for TP-Link A7 Routers):**
 1. Go to **Advanced > Network > DHCP Server > Settings > Address Reservation**
 2. Click **Add** and select the WireGuard server's MAC address from the list of connected devices
 3. Assign it an available IP address in the range `192.168.0.[2-255]`, such as `192.168.0.123`
 4. Click Save and reboot your router to apply the changes  
   
-Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
+> 🔥 Now, your WireGuard VPN server will always have the same local IP (`192.168.0.123`), ensuring port forwarding remains consistent
   
 Once your WireGuard VPN server has a static local IP, configure port forwarding to allow external access:  
   
-**For TP-Link A7 Routers:**
+**Configure NAT port forwarding (for TP-Link A7 Routers):**
 1. Navigate to **Advanced > NAT Forwarding > Virtual Servers**  
 2. Click **Add** and enter the following values (don't forget to save/reboot your router): 
   
@@ -102,7 +102,6 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 | **Check Firewall Rules (UFW)** | `sudo ufw status verbose \| grep <PORT>` | TCP/UDP | Displays if port is allowed | Verify firewall settings for the port |
 | **Check Firewall Rules (IPTables)** | `sudo iptables -L -v -n \| grep <PORT>` | TCP/UDP | Shows port rules if configured | Ensure IPTables isn’t blocking traffic |
 | **Capture Incoming Packets (UDP/TCP)** | `sudo tcpdump -i any port <PORT> -n` | TCP/UDP | Shows real-time packets if traffic is reaching the server | Troubleshoot whether packets are arriving at the machine |  
-  
   
   
 ## 📦 Installation  
@@ -160,6 +159,8 @@ You should see the `wg-easy` container running
 docker compose down
 ```  
   
+--
+  wg0.conf should take care of MASQUERADE
 ```bash
 sudo iptables -t nat -L -v -n | grep MASQUERADE
 ```  
@@ -168,8 +169,9 @@ sudo iptables -t nat -L -v -n | grep MASQUERADE
 
 FUTURE WEB UI CHECK:  
 http://<WG_HOST>:<PORT>  
-
-
+-- 
+  
+  
 ## 📂 Repository Overview  
 ```
 wireguard-setup/                # Root directory for WireGuard Setup (partially implemented)

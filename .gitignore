@@ -1,2 +1,5 @@
-# Ignore environment files
+# Ignore environment files:
 **/.env
+
+# Ignore WireGuard config files:
+config/wg0.conf

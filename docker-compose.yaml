@@ -1,26 +1,26 @@
 
 services:
   wg-easy:
-    image: ghcr.io/wg-easy/wg-easy       # Docker image (version 14 - latest/stable)
-    env_file: .env                       # Set environment variables inside the container
+    image: ghcr.io/wg-easy/wg-easy   # Docker image (version 14 - latest/stable)
+    env_file: .env                   # Set environment variables inside the container
     container_name: wg-easy
     # Exposes WireGuard and Web UI ports to the host machine. These will appear in "docker ps" 
     # under the PORTS column, showing the mapped addresses (i.e., 0.0.0.0:51820->51820/udp, 
     # 0.0.0.0:51821->51821/tcp). Use "docker ps" to verify that the container is running and accessible.
     ports:
-      - "${WG_PORT}:${WG_PORT}/udp"          # UDP port used by WireGuard server (Default: 51820)
-      - "${WEB_UI_PORT}:${WEB_UI_PORT}/tcp"  # TCP port for accessing the web-based admin UI (Default: 51821)
+      - "${WG_SERVER_PORT}:${WG_SERVER_PORT}/udp"                # UDP port used by WireGuard server (Default: 51820)
+      - "${WG_WEB_UI_PORT}:${WG_WEB_UI_PORT}/tcp"  # TCP port for accessing the web-based admin UI (Default: 51821)
     environment:
       # WireGuard VPN Server Settings:
       - WG_HOST=${WG_SERVER_PUBLIC_IP}       # Public IP address (or domain name, ${WG_SERVER_HOSTNAME}) of WireGuard server location
-      - WG_PORT=${WG_PORT}                   # WireGuard port for VPN traffic (Default: 51820)
+      - WG_PORT=${WG_SERVER_PORT}            # WireGuard port for VPN traffic (Default: 51820)
       # - WG_DEFAULT_ADDRESS=10.8.0.x        # Specifies the default subnet for clients (Default: 10.8.0.x)
       # - WG_DEFAULT_DNS=1.1.1.1             # Sets the default DNS server for connected clients (Default: 1.1.1.1)
       # - WG_ALLOWED_IPS=0.0.0.0/0, ::/0     # Determines which IPs the clients are allowed to access (Default is full tunnel: 0.0.0.0/0, ::/0) 
       # - WG_PERSISTENT_KEEPALIVE=25         # Sets the keepalive interval to maintain NAT traversal (Default: 25 seconds)
       
       # WireGuard Web UI Settings:
-      - PORT=${WEB_UI_PORT}                  # Web UI port for management of VPN connections (Default: 51821)  
+      - PORT=${WG_WEB_UI_PORT}               # Web UI port for management of VPN connections (Default: 51821)  
       - UI_CHART_TYPE=2                      # (0 - Chart disabled, 1 - Line, 2 - Area, 3 - Bar)
       - UI_TRAFFIC_STATS=true
       # - INSECURE=true                      # Enable/disable web UI access over HTTP, http://<WG_HOST>:<PORT> (not recommended, for testing only, version 15)

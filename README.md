@@ -46,6 +46,7 @@ To match the configured ports, update your firewall settings:
 ```bash
 sudo ufw allow 51820/udp
 sudo ufw allow 51821/tcp
+sudo ufw allow `WEB_UI_PORT`/tcp
 ```
   
 Optional: Restrict Web UI access to a specific trusted IP:

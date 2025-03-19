@@ -30,25 +30,18 @@ cd wireguard-setup
 ```bash
 cp .env.example .env
 ```
-Update these variables in `.env` to protect private data:
-- WG_SERVER_PUBLIC_IP → Your public IP address or domain
-- WG_SERVER_HOSTNAME → Your server’s hostname (optional)
-- WG_WEB_UI_PASSWORD → Set a secure admin password for the WireGuard Web UI
+Update these variables in `.env` to configure docker for WireGuard VPN and protect private data:  
+| **Variable**            | **Description** |
+|-------------------------|------------------------------------------|
+| `WG_SERVER_PUBLIC_IP`   | Your public IP address or domain |
+| `WG_SERVER_HOSTNAME`    | Your server’s hostname (optional) |
+| `WG_PORT`               | WireGuard VPN listening port (default: 51820/UDP) |
+| `WEB_UI_PORT`           | Web UI access port (default: 51821/TCP) |
+| `WG_WEB_UI_PASSWORD`    | Set a secure admin password for the WireGuard Web UI |
+  > 🔥 Storing all configuration values in `.env` keeps `docker-compose.yaml` cleaner, more maintainable, and easily customizable. To override settings, modify `docker-compose.yaml` directly, but using `.env` ensures modular and consistent updates across deployments
   
-### 3️⃣ Configure Docker for WireGuard VPN:
-Modify `docker-compose.yaml` to adjust ports and WireGuard settings if necessary:  
-```yaml
-services:
-  wg-easy:
-    environment:
-      - WG_PORT=51820       # WireGuard VPN port (default: 51820)
-      - PORT=51821          # Web UI port (default: 51821)
-    ports:
-      - "51820:51820/udp"   # Expose WireGuard VPN port
-      - "51821:51821/tcp"   # Expose Web UI port
-```
   
-### 4️⃣ Update Firewall Settings  
+### 3️⃣ Update Firewall Settings  
 To match the configured ports, update your firewall settings:
 ```bash
 sudo ufw allow 51820/udp
@@ -60,7 +53,7 @@ Optional: Restrict Web UI access to a specific trusted IP:
 sudo ufw allow from <your-trusted-ip> to any port 51821 proto tcp
 ```
   
-### 5️⃣ Configure Router for External Access  
+### 4️⃣ Configure Router for External Access  
 For remote VPN access, assign a static IP and enable NAT (port forwarding) to your VPN server on your router:
   
 Log into your router's admin panel 
@@ -92,7 +85,7 @@ Once your WireGuard VPN server has a static local IP, configure port forwarding 
 | **SSH Access**    | 22               | 22               | TCP        | Remote server access via SSH   | 192.168.0.123    |
   
   
-### 6️⃣ Port Connectivity Testing: UDP vs. TCP  
+### 5️⃣ Port Connectivity Testing: UDP vs. TCP  
   
 | **Test Type** | **Command** | **Protocol** | **Expected Behavior** | **Use Case** |
 |--------------|------------|-------------|----------------------|-------------|
@@ -159,22 +152,25 @@ You should see the `wg-easy` container running
 docker compose down
 ```  
   
---
+  
   wg0.conf should take care of MASQUERADE
 ```bash
 sudo iptables -t nat -L -v -n | grep MASQUERADE
 ```  
-✅ If MASQUERADE is missing, VPN clients won’t have internet.
-
-
+✅ If MASQUERADE is missing, VPN clients won’t have internet.  
+  
+  
 FUTURE WEB UI CHECK:  
 http://<WG_HOST>:<PORT>  
--- 
+  
   
   
 ## 📂 Repository Overview  
 ```
-wireguard-setup/                # Root directory for WireGuard Setup (partially implemented)
+wireguard-setup/                # Root directory for WireGuard VPN Setup (partially implemented)
+└── config/                     # Stores WireGuard configuration files
+    ├── wg0.conf                # WireGuard auto-generated server configuration (ignored in Git)
+    ├── wg0.json                # WireGuard auto-generated client configuration (ignored in Git)
 └── scripts/
     ├── check_firewall.sh       # Firewall & IPTables verification script
     ├── check_docker_reboot.sh  # Docker restart verification script
@@ -189,3 +185,4 @@ wireguard-setup/                # Root directory for WireGuard Setup (partially 
 **🎯 Looking to contribute?** Open an issue or fork the repo!  
 **🏗 Author:** [Brian Kaewell](https://github.com/bkaewell)  
 **📧 Contact:** Please open an issue [here](https://github.com/bkaewell/wireguard-setup/issues)
+  

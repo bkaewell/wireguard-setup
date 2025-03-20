@@ -5,7 +5,7 @@ Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple
   
   
 ## 📌 Features  
-- **WireGuard + Web UI:** Leverages the [wg-easy](https://github.com/wg-easy/wg-easy) Docker image for an intuitive VPN management interface  
+- **WireGuard VPN with Web UI:** Deploys WireGuard using the [wg-easy](https://github.com/wg-easy/wg-easy) Docker image, which provides an intuitive web-based VPN management interface  
 - **Customizable Deployment:** Production-ready `docker-compose.yaml` with an optional development mode for testing (future)  
 - **Secure Config Management:** Uses a `.env` file to protect sensitive data like public IP, ports and password credentials  
 - **Firewall & NAT Hardening:** Implements secure firewall rule to ensure safe VPN traffic routing  
@@ -14,8 +14,8 @@ Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple
   
   
 ## 🔑 Requirements  
-- A **host machine** with a kernel that supports WireGuard (all modern Linux kernels)  
-- A **host machine** with Docker & Docker Compose installed  
+- A **server running WireGuard** with a kernel that supports WireGuard (all modern Linux kernels)  
+- A **server running WireGuard** with Docker & Docker Compose installed  
 - A **router configured with NAT/port forwarding** for external VPN access  
   
   
@@ -78,17 +78,17 @@ Configure NAT port forwarding to the router:
 **For TP-Link A7 Routers:**  
 1. Navigate to **Advanced > NAT Forwarding > Virtual Servers**  
 2. Click **Add** and enter the following values (don't forget to save/reboot the router): 
-  
-| **Service Name**       | **External Port**     | **Internal Port**     | **Protocol** | **Purpose**                        | **Internal IP Address** |  
-|-----------------------|---------------------|---------------------|------------|--------------------------------|------------------|  
-| **WireGuard VPN**     | `<WG_SERVER_PORT>`  | `<WG_SERVER_PORT>`  | UDP        | Secure VPN connectivity        | `192.168.0.123`  |  
-| **WireGuard Web UI**  | `<WG_WEB_UI_PORT>`  | `<WG_WEB_UI_PORT>`  | TCP        | Manage WireGuard via Web UI    | `192.168.0.123`  |  
-| **SSH Access**        | 22                  | 22                  | TCP        | Remote server access via SSH   | `192.168.0.123`  |  
+    
+| **Service Name**       | **External Port** | **Internal Port** | **Protocol** | **Purpose**                      | **Internal IP Address** |
+|------------------------|------------------|------------------|------------|--------------------------------|------------------|
+| **WireGuard VPN**      | `<WG_SERVER_PORT>` | `<WG_SERVER_PORT>` | UDP        | Secure VPN connectivity        | `192.168.0.123`  |
+| **Web UI for WireGuard** | `<WG_WEB_UI_PORT>` | `<WG_WEB_UI_PORT>` | TCP        | Manage VPN clients via Web UI  | `192.168.0.123`  |
+| **SSH Access**         | 22               | 22               | TCP        | Remote server access via SSH   | `192.168.0.123`  |
   
   > 🔥🔥 Now, external devices can securely connect to your WireGuard VPN server using your public IP or domain, ensuring seamless remote access  
   
   
-### 5️⃣ Port Connectivity Testing: UDP vs. TCP  
+### 5️⃣ Verify VPN and Web UI Connectivity  
 | **Test Type** | **Command** | **Protocol** | **Expected Behavior** | **Use Case** |  
 |--------------|------------|-------------|----------------------|-------------|  
 | **UDP Connectivity** | `nc -uzv <IP> <PORT>` | UDP | ✅ **"Connection succeeded"** if port is open | Check if a UDP port is accessible |  
@@ -157,28 +157,20 @@ docker compose down
 FUTURE WEB UI CHECK:  
 http://<WG_SERVER_PUBLIC_IP>:<WG_WEB_UI_PORT> 
   
-  
-## 📖 Additional Client Setup Guides  
-
-For device-specific WireGuard client configuration, refer to the following guides:
-  
-- **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md) (Coming Soon)**  
-  
-  
 ## 📂 Repository Overview  
 ```
 wireguard-setup/                  # Root directory for WireGuard VPN Server setup 
 └── config/                       # Stores WireGuard configuration files 
-    ├── wg0.conf                  # Auto-generated live WireGuard server configuration (ignored in Git)  
-    |                             # - Contains server settings, keys, and peer configurations  
-    ├── wg0.json                  # Auto-generated WireGuard Web UI backup/restore file (ignored in Git)  
-    |                             # - Used by the Web UI for backup/restore operations  
-└── docs/                         # Documentation for additional setups
-    ├── firestick_client_setup.md # Guide for configuring WireGuard on Amazon Firestick
+    ├── wg0.conf                  # Auto-generated WireGuard live configuration (ignored in Git)  
+    |                             # - Stores active server settings, including peer details and firewall rules  
+    ├── wg0.json                  # Auto-generated WireGuard Web UI backup file (ignored in Git)  
+    |                             # - Used for restoring server/client settings via the Web UI  
+└── docs/                         # Documentation for additional setups  
+    ├── firestick_client_setup.md # Guide for configuring WireGuard on Amazon Firestick  
 └── scripts/                      # Utility scripts for system checks  
     ├── check_firewall.sh         # Firewall & IPTables verification script  
     ├── check_docker_reboot.sh    # Docker restart verification script  
-├── docker-compose.yaml           # Supports production deployment (Dev mode: FUTURE)   
+├── docker-compose.yaml           # Supports production deployment (Dev mode: FUTURE)  
 ├── Dockerfile.dev                # Builds custom dev-friendly image (FUTURE)  
 ├── docker-entrypoint.dev.sh      # Optional custom entrypoint for dev mode (FUTURE)  
 ├── .env.example                  # Template for environment variables  
@@ -186,6 +178,12 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
 └── README.md                     # Documentation (this file)  
 ```  
   
+## 📖 Additional Documentation  
+
+- **[WireGuard Basics](docs/wireguard_basics.md)** – Learn about WireGuard, VPNs, and how they work  
+- **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md)** - (Coming Soon)  
+  
+
 **🎯 Looking to contribute?** Open an issue or fork the repo!  
 **🏗 Author:** [Brian Kaewell](https://github.com/bkaewell)  
 **📧 Contact:** Please open an issue [here](https://github.com/bkaewell/wireguard-setup/issues)

@@ -35,10 +35,10 @@ cp .env.example .env
 |-------------------------|------------------------------------------|
 | `WG_SERVER_PUBLIC_IP`   | Your public IP address or domain |
 | `WG_SERVER_HOSTNAME`    | Your server’s hostname (optional) |
-| `WG_SERVER_PORT`               | WireGuard VPN listening port (default: 51820/UDP) |
-| `WG_WEB_UI_PORT`        | WireGuard web UI access port (default: 51821/TCP) |
-| `WG_WEB_UI_PASSWORD`    | Set a secure admin password for the WireGuard web UI |
-  > 🔥 Storing all config values in `.env` keeps `docker-compose.yaml` cleaner, more maintainable, and easily customizable. To override settings, modify `docker-compose.yaml` directly, but using `.env` ensures modular/consistent updates across deployments while keeping private data out of version control (GitHub)  
+| `WG_SERVER_PORT`        | WireGuard VPN listening port (default: 51820/UDP) |
+| `WG_WEB_UI_PORT`        | WireGuard Web UI access port (default: 51821/TCP) |
+| `WG_WEB_UI_PASSWORD`    | Set a secure admin password for the WireGuard Web UI |
+  > 🔥🔥 Storing all config values in `.env` keeps `docker-compose.yaml` cleaner, more maintainable, and easily customizable. To override settings, modify `docker-compose.yaml` directly, but using `.env` ensures modular/consistent updates across deployments while keeping private data out of version control (GitHub)  
   
   
 ### 3️⃣ Update Firewall Settings  
@@ -48,7 +48,7 @@ sudo ufw allow <WG_SERVER_PORT>/udp
 sudo ufw allow <WG_WEB_UI_PORT>/tcp
 ```
   
-Optional: Restrict web UI access to a specific trusted IP:
+Optional: Restrict WireGuard Web UI access to a specific trusted IP:
 ```bash
 sudo ufw allow from <YOUR_TRUSTED_IP> to any port <WG_WEB_UI_PORT> proto tcp
 ```
@@ -70,7 +70,7 @@ Log into your router's admin panel
 3. Assign it an available static IP (i.e. `192.168.0.123`)  
 4. Save and reboot the router    
   
-> 🔥 A static local IP (`192.168.0.123`) ensures that port forwarding always routes VPN traffic correctly  
+> 🔥🔥 A static local IP (`192.168.0.123`) ensures that port forwarding always routes VPN traffic correctly  
   
 Configure NAT port forwarding to the router:  
   
@@ -82,10 +82,10 @@ Configure NAT port forwarding to the router:
 | **Service Name**       | **External Port**     | **Internal Port**     | **Protocol** | **Purpose**                        | **Internal IP Address** |  
 |-----------------------|---------------------|---------------------|------------|--------------------------------|------------------|  
 | **WireGuard VPN**     | `<WG_SERVER_PORT>`  | `<WG_SERVER_PORT>`  | UDP        | Secure VPN connectivity        | `192.168.0.123`  |  
-| **WireGuard Web UI**  | `<WG_WEB_UI_PORT>`  | `<WG_WEB_UI_PORT>`  | TCP        | Manage WireGuard via web UI    | `192.168.0.123`  |  
+| **WireGuard Web UI**  | `<WG_WEB_UI_PORT>`  | `<WG_WEB_UI_PORT>`  | TCP        | Manage WireGuard via Web UI    | `192.168.0.123`  |  
 | **SSH Access**        | 22                  | 22                  | TCP        | Remote server access via SSH   | `192.168.0.123`  |  
   
-  > 🔥 Now, external devices can securely connect to your WireGuard VPN server using your public IP or domain, ensuring seamless remote access  
+  > 🔥🔥 Now, external devices can securely connect to your WireGuard VPN server using your public IP or domain, ensuring seamless remote access  
   
   
 ### 5️⃣ Port Connectivity Testing: UDP vs. TCP  
@@ -154,33 +154,36 @@ docker compose down
 ```  
   
   
-  wg0.conf should take care of MASQUERADE
-```bash
-sudo iptables -t nat -L -v -n | grep MASQUERADE
-```  
-✅ If MASQUERADE is missing, VPN clients won’t have internet.  
-  
-  
 FUTURE WEB UI CHECK:  
-http://<WG_HOST>:<PORT>  
+http://<WG_SERVER_PUBLIC_IP>:<WG_WEB_UI_PORT> 
   
+  
+## 📖 Additional Client Setup Guides  
+
+For device-specific WireGuard client configuration, refer to the following guides:
+  
+- **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md) (Coming Soon)**  
   
   
 ## 📂 Repository Overview  
 ```
-wireguard-setup/                # Root directory for WireGuard VPN Server setup 
-└── config/                     # Stores WireGuard configuration files 
-    ├── wg0.conf                # Auto-generated WireGuard server-side config (ignored in Git) 
-    ├── wg0.json                # Auto-generated WireGuard client-side config (ignored in Git) 
-└── scripts/                    # Utility scripts for system checks 
-    ├── check_firewall.sh       # Firewall & IPTables verification script 
-    ├── check_docker_reboot.sh  # Docker restart verification script 
-├── docker-compose.yaml         # Supports production deployment (Dev mode: FUTURE) 
-├── Dockerfile.dev              # Builds custom dev-friendly image (FUTURE) 
-├── docker-entrypoint.dev.sh    # Optional custom entrypoint for dev mode (FUTURE) 
-├── .env.example                # Template for environment variables 
-├── .gitignore                  # Ignores sensitive files 
-└── README.md                   # Documentation (this file) 
+wireguard-setup/                  # Root directory for WireGuard VPN Server setup 
+└── config/                       # Stores WireGuard configuration files 
+    ├── wg0.conf                  # Auto-generated live WireGuard server configuration (ignored in Git)  
+    |                             # - Contains server settings, keys, and peer configurations  
+    ├── wg0.json                  # Auto-generated WireGuard Web UI backup/restore file (ignored in Git)  
+    |                             # - Used by the Web UI for backup/restore operations  
+└── docs/                         # Documentation for additional setups
+    ├── firestick_client_setup.md # Guide for configuring WireGuard on Amazon Firestick
+└── scripts/                      # Utility scripts for system checks  
+    ├── check_firewall.sh         # Firewall & IPTables verification script  
+    ├── check_docker_reboot.sh    # Docker restart verification script  
+├── docker-compose.yaml           # Supports production deployment (Dev mode: FUTURE)   
+├── Dockerfile.dev                # Builds custom dev-friendly image (FUTURE)  
+├── docker-entrypoint.dev.sh      # Optional custom entrypoint for dev mode (FUTURE)  
+├── .env.example                  # Template for environment variables  
+├── .gitignore                    # Ignores sensitive files  
+└── README.md                     # Documentation (this file)  
 ```  
   
 **🎯 Looking to contribute?** Open an issue or fork the repo!  

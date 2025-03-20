@@ -183,6 +183,7 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
 - **[WireGuard Basics](docs/wireguard_basics.md)** – Learn about WireGuard, VPNs, and how they work  
 - **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md)** - (Coming Soon)  
   
+## 🤝 Contributing & Contact    
 
 **🎯 Looking to contribute?** Open an issue or fork the repo!  
 **🏗 Author:** [Brian Kaewell](https://github.com/bkaewell)  

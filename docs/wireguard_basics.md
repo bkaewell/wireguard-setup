@@ -8,10 +8,10 @@ Learn the core concepts behind WireGuard, how it differs from other VPN technolo
 
 A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** between a user's device and a remote server. It provides:
 
-- ✅ **Privacy:** Hides your IP address and encrypts internet traffic  
-- ✅ **Security:** Protects data from hackers, ISPs, and surveillance  
-- ✅ **Access:** Bypasses geo-restrictions and firewall blocks  
-- ✅ **Anonymity:** Shields online activity from tracking  
+✅ **Privacy:** Hides your IP address and encrypts internet traffic  
+✅ **Security:** Protects data from hackers, ISPs, and surveillance  
+✅ **Access:** Bypasses geo-restrictions and firewall blocks  
+✅ **Anonymity:** Shields online activity from tracking  
 
 ---
 
@@ -19,9 +19,9 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 **WireGuard** is a modern, lightweight, and fast **VPN protocol** designed for simplicity and performance. Unlike traditional protocols (i.e., OpenVPN, IPsec), WireGuard operates at **Layer 3 (network layer)** of the kernel, making it:
 
-- 🔸 Easier to configure
-- 🔸 More efficient and secure
-- 🔸 Faster in performance benchmarks
+🔸 Easier to configure
+🔸 More efficient and secure
+🔸 Faster in performance benchmarks
 
 ---
 
@@ -29,9 +29,9 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 A **WireGuard VPN** is a VPN implementation that uses the WireGuard protocol to securely route traffic between devices. It allows:
 
-- 🔒 Secure, encrypted connections between trusted endpoints
-- 📶 High performance on constrained devices
-- 🌍 Use across mobile, desktop, embedded systems, and containers
+🔒 Secure, encrypted connections between trusted endpoints
+📶 High performance on constrained devices
+🌍 Use across mobile, desktop, embedded systems, and containers
 
 ---
 
@@ -70,7 +70,7 @@ Here’s what happens when a **Firestick in Europe** connects to a **WireGuard V
 | `DNS = 1.1.1.1`                | DNS queries are tunneled securely through WireGuard        |
 | `PersistentKeepalive = 0`      | Client sends no keepalives unless traffic is sent manually |
 
-### Example Client Config File 
+#### Example Client Config File 
 
 ```ini
 [Interface]                 # Settings specific to the VPN client

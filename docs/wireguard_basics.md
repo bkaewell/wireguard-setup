@@ -37,10 +37,7 @@ A **WireGuard VPN** is a VPN implementation that uses the WireGuard protocol to 
 
 ## 🕶️ What is a WireGuard VPN Server?
 
-A **WireGuard VPN server** is the central component that manages peer (client) connections
-
-It handles:
-
+A **WireGuard VPN server** is the central component that manages peer (client) connections. It handles:  
 - **Authentication** using cryptographic keys
 - **Encryption & Routing** between devices and networks
 - **Access Relay** to private, internal, or restricted services

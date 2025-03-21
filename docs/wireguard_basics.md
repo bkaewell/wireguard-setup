@@ -19,9 +19,9 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 **WireGuard** is a modern, lightweight, and fast **VPN protocol** designed for simplicity and performance. Unlike traditional protocols (i.e., OpenVPN, IPsec), WireGuard operates at **Layer 3 (network layer)** of the kernel, making it:
 
-🔸 Easier to configure
-🔸 More efficient and secure
-🔸 Faster in performance benchmarks
+🔸 Easier to configure  
+🔸 More efficient and secure  
+🔸 Faster in performance benchmarks  
 
 ---
 
@@ -29,9 +29,9 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 A **WireGuard VPN** is a VPN implementation that uses the WireGuard protocol to securely route traffic between devices. It allows:
 
-🔒 Secure, encrypted connections between trusted endpoints
-📶 High performance on constrained devices
-🌍 Use across mobile, desktop, embedded systems, and containers
+🔒 Secure, encrypted connections between trusted endpoints  
+📶 High performance on constrained devices  
+🌍 Use across mobile, desktop, embedded systems, and containers  
 
 ---
 

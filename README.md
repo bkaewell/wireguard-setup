@@ -6,7 +6,7 @@ Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple
   
 ## 📌 Features  
 - **WireGuard VPN with Web UI:** Deploys WireGuard using the [wg-easy](https://github.com/wg-easy/wg-easy) Docker image, which provides an intuitive web-based VPN management interface  
-- **Customizable Deployment:** Production-ready `docker-compose.yaml` with an optional development mode for testing (future)  
+- **Customizable Deployment:** Production-ready `docker-compose.yaml` with an optional development mode for testing (FUTURE)  
 - **Secure Config Management:** Uses a `.env` file to protect sensitive data like public IP, ports and password credentials  
 - **Firewall & NAT Hardening:** Implements secure firewall rule to ensure safe VPN traffic routing  
 - **Dockerized & Portable:** Runs in a containerized environment for easy setup and scalability  
@@ -14,8 +14,8 @@ Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple
   
   
 ## 🔑 Requirements  
-- A **server running WireGuard** with a kernel that supports WireGuard (all modern Linux kernels)  
-- A **server running WireGuard** with Docker & Docker Compose installed  
+- A **host machine** with a kernel that supports WireGuard (all modern Linux kernels)  
+- A **host machine** with Docker & Docker Compose installed  
 - A **router configured with NAT/port forwarding** for external VPN access  
   
   
@@ -54,38 +54,42 @@ sudo ufw allow from <YOUR_TRUSTED_IP> to any port <WG_WEB_UI_PORT> proto tcp
 ```
   
 ### 4️⃣ Configure Router for External Access  
-Assign a static local IP to the WireGuard VPN server and configure NAT (port forwarding) on your router to allow remote VPN access:
+
+To enable **remote access to WireGuard**, you must:  
+- **Assign a static local IP** to the WireGuard VPN server  
+- **Set up port forwarding** on your router to ensure VPN traffic reaches the WireGuard VPN server   
   
-Log into your router's admin panel 
+--- 
+  
+#### Assign a Static Local IP to the WireGuard Server  
+  
+Log into your router's **admin panel**
 | **Router Model**  | **Admin Panel URL** | 
 |-------------------|------------------------------|
 | **TP-Link A7**   | [http://192.168.0.1](http://192.168.0.1) |
 | **Other Routers** | `http://192.168.X.1` |
   
-
-**Assign a static local IP to the WireGuard VPN server**  
-**For TP-Link A7 Routers:**  
+For **TP-Link A7 Routers:**  
 1. Go to **Advanced > Network > DHCP Server > Settings > Address Reservation**  
-2. Click **Add** and select the WireGuard VPN server's MAC address from the connected devices  
-3. Assign it an available static IP (i.e. `192.168.0.123`)  
-4. Save and reboot the router    
-  
+2. Click **Add** and select the **MAC address** of the WireGuard VPN server   
+3. Assign it an **available static IP** (i.e. `192.168.0.123`)  
+4. **Save and reboot** the router  
 > 🔥🔥 A static local IP (`192.168.0.123`) ensures that port forwarding always routes VPN traffic correctly  
   
-Configure NAT port forwarding to the router:  
+--- 
   
-**Configure NAT port forwarding**  
-**For TP-Link A7 Routers:**  
+#### Configure Port Forwarding to the Router:  
+  
+For **TP-Link A7 Routers:**  
 1. Navigate to **Advanced > NAT Forwarding > Virtual Servers**  
-2. Click **Add** and enter the following values (don't forget to save/reboot the router): 
+2. Click **Add** and enter the following values (Save/reboot the router): 
     
 | **Service Name**       | **External Port** | **Internal Port** | **Protocol** | **Purpose**                      | **Internal IP Address** |
 |------------------------|------------------|------------------|------------|--------------------------------|------------------|
-| **WireGuard VPN**      | `<WG_SERVER_PORT>` | `<WG_SERVER_PORT>` | UDP        | Secure VPN connectivity        | `192.168.0.123`  |
-| **Web UI for WireGuard** | `<WG_WEB_UI_PORT>` | `<WG_WEB_UI_PORT>` | TCP        | Manage VPN clients via Web UI  | `192.168.0.123`  |
-| **SSH Access**         | 22               | 22               | TCP        | Remote server access via SSH   | `192.168.0.123`  |
-  
-  > 🔥🔥 Now, external devices can securely connect to your WireGuard VPN server using your public IP or domain, ensuring seamless remote access  
+| **WireGuard VPN Server**      | `<WG_SERVER_PORT>` | `<WG_SERVER_PORT>` | UDP        | Handles VPN client connections  | `192.168.0.123`  |
+| **Web UI for WireGuard** | `<WG_WEB_UI_PORT>` | `<WG_WEB_UI_PORT>` | TCP        | Manage VPN clients and settings  | `192.168.0.123`  |
+| **SSH Access**         | 22               | 22               | TCP        | Remote access to the host machine   | `192.168.0.123`  |
+  > 🔥🔥 Now, external devices can securely connect to WireGuard using your public IP or domain, ensuring seamless remote access  
   
   
 ### 5️⃣ Verify VPN and Web UI Connectivity  
@@ -161,9 +165,9 @@ http://<WG_SERVER_PUBLIC_IP>:<WG_WEB_UI_PORT>
 ```
 wireguard-setup/                  # Root directory for WireGuard VPN Server setup 
 └── config/                       # Stores WireGuard configuration files 
-    ├── wg0.conf                  # Auto-generated WireGuard live configuration (ignored in Git)  
-    |                             # - Stores active server settings, including peer details and firewall rules  
-    ├── wg0.json                  # Auto-generated WireGuard Web UI backup file (ignored in Git)  
+    ├── wg0.conf                  # Auto-generated configuration for the core WireGuard VPN server (ignored in Git)  
+    |                             # - Contains private keys, server settings, and VPN peer configurations  
+    ├── wg0.json                  # Web UI backup file for restoring VPN settings (ignored in Git)  
     |                             # - Used for restoring server/client settings via the Web UI  
 └── docs/                         # Documentation for additional setups  
     ├── firestick_client_setup.md # Guide for configuring WireGuard on Amazon Firestick  
@@ -181,7 +185,7 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
 ## 📖 Additional Documentation  
 
 - **[WireGuard Basics](docs/wireguard_basics.md)** – Learn about WireGuard, VPNs, and how they work  
-- **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md)** - (Coming Soon)  
+- **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md)**  
   
 ## 🤝 Contributing & Contact    
 

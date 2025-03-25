@@ -1,10 +1,10 @@
-# 📖 WireGuard Basics
+# 📚 WireGuard Basics  
 
 Learn the core concepts behind WireGuard, how it differs from other VPN technologies, and how it works in real-world deployments
 
 ---
 
-## 🚦 What is a VPN?
+## 🚦 What is a VPN?  
 
 A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** between a user's device and a remote server. It provides:
 
@@ -15,7 +15,7 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 ---
 
-## 🔐 What is WireGuard?
+## What is WireGuard?
 
 **WireGuard** is a modern, lightweight, and fast **VPN protocol** designed for simplicity and performance. Unlike traditional protocols (i.e., OpenVPN, IPsec), WireGuard operates at **Layer 3 (network layer)** of the kernel, making it:
 
@@ -25,7 +25,7 @@ A **VPN (Virtual Private Network)** creates a **secure, encrypted tunnel** betwe
 
 ---
 
-## 🌐 What is WireGuard VPN?
+## What is WireGuard VPN?
 
 A **WireGuard VPN** is a VPN implementation that uses the WireGuard protocol to securely route traffic between devices. It allows:
 
@@ -35,7 +35,7 @@ A **WireGuard VPN** is a VPN implementation that uses the WireGuard protocol to 
 
 ---
 
-## 🕶️ What is a WireGuard VPN Server?
+## 😎 What is a WireGuard VPN Server?
 
 A **WireGuard VPN server** is the central component that manages peer (client) connections. It handles:  
 - **Authentication** using cryptographic keys

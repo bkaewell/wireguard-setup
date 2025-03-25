@@ -1,17 +1,17 @@
-# **Installing WireGuard on Amazon Firestick 4K**  
+# Installing WireGuard on Amazon Firestick 4K  
 
 This guide provides step-by-step instructions for installing WireGuard on an **Amazon Firestick 4K** and configuring it with a **WireGuard VPN client**.  
 
-## **Prerequisites**  
+## Prerequisites  
 - **Amazon Firestick 4K** (or compatible Fire TV device)  
 - **A computer with FileZilla** (or another FTP client)  
 - **WireGuard VPN `.conf` file** (provided by your VPN server)  
 
 ---  
 
-## **1️⃣ Install Necessary Apps on Firestick**  
+## 1️⃣ Install Necessary Apps on Firestick  
 
-### **1.1 Enable Developer Options**  
+### 1.1 Enable Developer Options  
 1. **Enable Developer Mode:**  
    - Navigate to **Settings > My Fire TV**  
    - Select **Fire TV Stick 4K** and click **4 times** to unlock Developer Mode  
@@ -22,7 +22,7 @@ This guide provides step-by-step instructions for installing WireGuard on an **A
    - Navigate to **Settings > Developer Options**  
    - Enable **Apps from Unknown Sources**  
 
-### **1.2 Install Required Apps**  
+### 1.2 Install Required Apps  
 1. **Install Downloader from the Amazon App Store**  
    - Search for **Downloader** in the **Amazon App Store** and install it  
 2. **Install ES File Explorer or Xplore**  
@@ -38,7 +38,7 @@ This guide provides step-by-step instructions for installing WireGuard on an **A
 
 ---  
 
-## **2️⃣ Transfer WireGuard Configuration File to Firestick**  
+## 2️⃣ Transfer WireGuard Configuration File to Firestick  
 
 1. **Launch ES File Explorer**  
    - Navigate to **Local > Internal Storage**  
@@ -57,9 +57,9 @@ This guide provides step-by-step instructions for installing WireGuard on an **A
 
 ---  
 
-## **3️⃣ Install & Configure WireGuard VPN**  
+## 3️⃣ Install & Configure WireGuard VPN  
 
-### **3.1 Install WireGuard**  
+### 3.1 Install WireGuard  
 1. Open **Downloader**  
 2. Search for **WireGuard**  
 3. Go to **www.wireguard.com/install**  
@@ -67,7 +67,7 @@ This guide provides step-by-step instructions for installing WireGuard on an **A
 5. Click the **link underneath** the Google Play Store button *(DO NOT install from the Play Store, use the direct APK link)*  
 6. Download and install WireGuard  
 
-### **3.2 Import WireGuard Configuration**  
+### 3.2 Import WireGuard Configuration  
 1. Open **WireGuard**  
 2. Click **"+" (Add a tunnel)**  
 3. Select **Import from File**  
@@ -76,7 +76,7 @@ This guide provides step-by-step instructions for installing WireGuard on an **A
 
 ---  
 
-## **4️⃣ Using WireGuard VPN on Firestick**  
+## 4️⃣ Using WireGuard VPN on Firestick  
 
 1. Open **WireGuard**  
 2. Select the VPN configuration  
@@ -87,7 +87,7 @@ Your Firestick is now securely connected to the VPN! 🎉
 
 ---
 
-## **📌 Troubleshooting**  
+## 🧨 Troubleshooting  
 
 - **Cannot find Developer Options?** Try clicking on **My Fire TV** multiple times to unlock it  
 - **WireGuard installation fails?** Make sure you use the direct APK link instead of Google Play Store  

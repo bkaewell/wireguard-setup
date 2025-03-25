@@ -1,4 +1,4 @@
-# 🚀 WireGuard VPN Server with Docker & Firewall Hardening  
+# 🥷 WireGuard VPN Server with Docker & Firewall Hardening 🚀    
 
 Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple and secure WireGuard VPN deployment using Docker Compose, Uncomplicated Firewall (UFW), IPTables, and Network Address Translation (NAT) for persistent, secure VPN access.  
 
@@ -139,7 +139,7 @@ sudo systemctl enable --now docker
 ---
 
 ## ⚙️ Deployment   
-### 🔐 Deploy WireGuard VPN Server (Production Mode) 
+### 🟢 Deploy WireGuard VPN Server (Production Mode) 
 
 Run the WireGuard VPN server using **Docker Compose** deploying the `wg-easy` service in detached mode (running in the background):
 ```bash
@@ -153,7 +153,7 @@ docker ps -a
 ```  
 You should see the `wg-easy` container running  
   
-### Stop the VPN Container  
+### 🛑 Stop the VPN Container  
 ```bash
 docker compose down
 ```  
@@ -197,7 +197,7 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
 
 ---
 
-## 📖 Additional Documentation  
+## 📚 Additional Documentation  
 
 - **[WireGuard Basics](docs/wireguard_basics.md)** – Learn about WireGuard, VPNs, and how they work  
 - **[Setup WireGuard on Amazon Firestick](docs/firestick_client_setup.md)**  
@@ -207,7 +207,7 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
 ## 🤝 Contributing & Contact    
 
 **🎯 Looking to contribute?** Open an issue or fork the repo!  
-**🏗 Author:** [Brian Kaewell](https://github.com/bkaewell)  
+**👨‍💻 Author:** [Brian Kaewell](https://github.com/bkaewell)  
 **📧 Contact:** Please open an issue [here](https://github.com/bkaewell/wireguard-setup/issues)
 
 ---

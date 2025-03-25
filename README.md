@@ -183,6 +183,7 @@ wireguard-setup/                  # Root directory for WireGuard VPN Server setu
     |                             # - Used for restoring server/client settings via the Web UI  
 └── docs/                         # Documentation for additional setups  
     ├── firestick_client_setup.md # Guide for configuring WireGuard on Amazon Firestick  
+    ├── wireguard_basics.md       # WireGuard overview with a full-tunnel real-world example
 └── scripts/                      # Utility scripts for system checks  
     ├── check_firewall.sh         # Firewall & IPTables verification script  
     ├── check_docker_reboot.sh    # Docker restart verification script  

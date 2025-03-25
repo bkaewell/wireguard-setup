@@ -157,10 +157,19 @@ You should see the `wg-easy` container running
 ```bash
 docker compose down
 ```  
-  
-  
-FUTURE WEB UI CHECK:  
-http://<WG_SERVER_PUBLIC_IP>:<WG_WEB_UI_PORT> 
+
+## 🌐 Accessing the `wg-easy` Web Interface  
+
+Once deployed, access the `wg-easy` web interface through:  
+```
+http://<WG_SERVER_PUBLIC_IP>:<WG_WEB_UI_PORT>
+```
+
+To log in, enter the **bcrypt-hashed admin password** you configured in the `WG_WEB_UI_PASSWORD` environment variable inside your `.env` file. Make sure the following conditions are met for successful access:  
+- Your **router must have port <WG_WEB_UI_PORT>/TCP forwarded** to your server's internal IP (`192.168.0.123`)
+- The `wg-easy` Docker container must be **actively running** on the WireGuard VPN server  
+
+> 🔥🔥 This web interface allows you to manage VPN clients, generate configuration files, and monitor your WireGuard setup from any browser
 
 ---
 

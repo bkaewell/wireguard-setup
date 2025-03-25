@@ -139,24 +139,25 @@ sudo systemctl enable --now docker
 ---
 
 ## ⚙️ Deployment   
-### 🟢 Deploy WireGuard VPN Server (Production Mode) 
+### 🟢 Start the WireGuard VPN Server
 
-Run the WireGuard VPN server using **Docker Compose** deploying the `wg-easy` service in detached mode (running in the background):
+Use **Docker Compose** to start the containerized `wg-easy` service, which includes both the **WireGuard VPN server** and its web-based management interface. The service runs in detached mode (in the background):
 ```bash
 docker compose up -d                  # Start in production mode
-docker compose --profile prod up -d   # Future dev support
+docker compose --profile prod up -d   # (Optional) Future dev profile support
 ```  
   
-Check if the container is running:  
+Verify the container is running:  
 ```bash
 docker ps -a
 ```  
 You should see the `wg-easy` container running  
   
-### 🛑 Stop the VPN Container  
+### 🛑 Stop the WireGuard VPN Server  
 ```bash
 docker compose down
 ```  
+This stops the entire VPN stack and removes the running container, but retains volumes and configs for future startups  
 
 ## 🌐 Accessing the `wg-easy` Web Interface  
 

@@ -1,4 +1,4 @@
-# 🥷 WireGuard VPN Server with Docker & Firewall Hardening 🚀    
+# 🥷 WireGuard VPN Server with Docker & Firewall Hardening    
 
 Welcome to the **WireGuard VPN Server Setup** repository! This provides a simple and secure WireGuard VPN deployment using Docker Compose, Uncomplicated Firewall (UFW), IPTables, and Network Address Translation (NAT) for persistent, secure VPN access.  
 
